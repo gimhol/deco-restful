@@ -27,7 +27,10 @@ async function handleRequest(arg: IHandleRequestArg) {
         case String: args.push(_numberTranslator.fromAny(raw_value, p)); break;
         case Number: args.push(_stringTranslator.fromAny(raw_value, p)); break;
         case Boolean: args.push(_booleanTranslator.fromAny(raw_value, p)); break;
-        default: args.push(raw_value)
+        default: {
+          args.push(raw_value)
+          break;
+        }
       }
     }
     const result = await handler.func.call(handler.owner, ...args)

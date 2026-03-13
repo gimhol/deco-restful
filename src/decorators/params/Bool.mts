@@ -1,5 +1,5 @@
-import type { IMethodDecorator } from "../../types.mjs";
-import { Paramater } from "./Paramater.mjs";
+import type { IMethodDecorator, ISetterDecorator } from "../../types.mjs";
+import { Param } from "./Paramater.mjs";
 
 
 export function Bool<This, Args extends any[], Return>(
@@ -7,7 +7,7 @@ export function Bool<This, Args extends any[], Return>(
   required: boolean = false,
   fallback?: boolean
 ): IMethodDecorator<This, Args, Return> {
-  return Paramater({ key, type: Boolean, required, fallback });
+  return Param({ key, type: Boolean, required, fallback });
 }
 Bool.Fallback = function <This, Args extends any[], Return>(key: string, fallback: boolean): IMethodDecorator<This, Args, Return> {
   return Bool(key, false, fallback);

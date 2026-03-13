@@ -1,4 +1,4 @@
-import { Paramater } from "./Paramater.mjs";
+import { Param } from "./Paramater.mjs";
 import type { IMethodDecorator } from "../../types.mjs";
 
 export function Str<This, Args extends any[], Return>(
@@ -6,7 +6,7 @@ export function Str<This, Args extends any[], Return>(
   required: boolean = false,
   fallback?: string
 ): IMethodDecorator<This, Args, Return> {
-  return Paramater({ key, type: String, required, fallback });
+  return Param({ key, type: String, required, fallback });
 }
 Str.Fallback = function <This, Args extends any[], Return>(key: string, fallback: string): IMethodDecorator<This, Args, Return> {
   return Str(key, false, fallback);

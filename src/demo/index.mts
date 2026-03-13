@@ -1,4 +1,3 @@
-
 import { bindExpress } from '../express/index.mjs';
 import { Context } from '../index.mjs';
 import './DemoController.mjs';
@@ -14,3 +13,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
 Context.print();
+

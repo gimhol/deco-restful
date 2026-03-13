@@ -10,6 +10,13 @@ export interface IMethodDecorator<This, Args extends any[], Return> {
     context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Return>
   ): void;
 }
+export interface ISetterDecorator<T, This> {
+  (
+    target: (this: This, v: T) => void,
+    context: ClassSetterDecoratorContext<This, T>
+  ): void;
+}
+
 export interface IFunc<This, Args extends any[], Return> {
   (this: This, ...args: Args): Return
 }
@@ -27,7 +34,7 @@ export interface IRHandlerInfo<C = any> extends IHandlerInfo<C> {
 export type Type = typeof String | typeof Number | typeof Boolean;
 
 export interface IParamaterInfo {
-  type: Type;
+  type: Type | IClass<any>;
   key: string;
   required: boolean;
   fallback: any;

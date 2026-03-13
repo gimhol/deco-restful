@@ -1,4 +1,12 @@
-import { Bool, Controller, CONTROLLER_ROOT, DELETE, GET, Num, POST, PUT, Str } from "../index.mjs";
+import { Controller, CONTROLLER_ROOT, DELETE, GET, Pack, Param, POST, Property, PUT } from "../index.mjs";
+
+@Pack
+class DemoPack {
+  @Property
+  get a(): null { return null }
+  @Property
+  set a(v) { }
+}
 
 @Controller('blog')
 class Demo {
@@ -11,9 +19,10 @@ class Demo {
   }
 
   @PUT @GET @POST @DELETE
-  @Str('str')
-  @Num('num')
-  @Bool('bool')
+  @Param.Str('str')
+  @Param.Num('num')
+  @Param.Bool('bool')
+  @Param.Pack('pack', DemoPack)
   str_num_bool(str: string, num: number, bool: boolean) {
     const TAG = `[${Demo.TAG}::test]`
     console.log(`${TAG} called`)

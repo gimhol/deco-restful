@@ -1,23 +1,20 @@
-import { Controller, CONTROLLER_ROOT, DELETE, DTO, GET, Param, POST, Property, PUT } from "../index.mjs";
+import { Controller, CONTROLLER_ROOT, Data, DELETE, GET, Param, POST, Property, PUT } from "../index.mjs";
 
-@DTO
-class SubDTO {
+@Data
+class SubData {
   @Property({ field: 'bar' })
   get foo(): string { return 'good' }
 }
 
-@DTO
-class DemoDTO {
+@Data
+class DemoData {
 
   @Property({})
   get hello(): string { return 'world' }
-
-  @Property({ init: 'hello setter' })
-  set hello(v: string) { }
-
+  set hello(_: string) { }
 
   @Property
-  get sub(): SubDTO { return new SubDTO() }
+  get sub(): SubData { return new SubData() }
 }
 
 
@@ -35,7 +32,7 @@ class Demo {
   @Param.Str('str')
   @Param.Num('num')
   @Param.Bool('bool')
-  @Param.DTO('pack', DemoDTO)
+  @Param.Data('pack', DemoData)
   str_num_bool(str: string, num: number, bool: boolean) {
     const TAG = `[${Demo.TAG}::test]`
     console.log(`${TAG} called`)
@@ -47,12 +44,11 @@ class Demo {
     return ret;
   }
 
-
-
   world() { }
 }
 
-const dto = new DemoDTO();
-console.log('dto:', dto)
-console.log('dto.hello:', dto.hello)
-console.log('dto.toJSON:', JSON.stringify(dto))
+const demoData = new DemoData();
+demoData.hello = 'world by user'
+// console.log('Data:', Data)
+// console.log('Data.hello:', Data.hello)
+console.log('Data.toJSON:', JSON.stringify(demoData))

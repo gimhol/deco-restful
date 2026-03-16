@@ -12,5 +12,5 @@ bindExpress({ app, prefix: 'api' });
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
-Context.print();
+// Context.print();
 

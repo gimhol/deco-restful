@@ -61,9 +61,8 @@ function _decorator<This, T>(info: IPropertyInfo<This, T>, func: IProperty<This,
     const my_info_name = `${__PROP_INFO_PREFIX__}_${ctx.kind}_${name}`
     self[my_info_name] = rinfo;
 
-    const setter_after_getter = src_val_name in self && ctx.kind === 'setter';
     if (!(src_val_name in self)) self[src_val_name] = self[name]
-
+    
     const init_value = get_init_value(self, rinfo) ?? self[src_val_name];
     if (ctx.kind == 'getter') {
       const bro_info = self[setter_info_name] as IRPropertyInfo<This, T> | undefined;
@@ -107,16 +106,11 @@ function _decorator<This, T>(info: IPropertyInfo<This, T>, func: IProperty<This,
         )
       } while (0)
     }
-
     self[pri_val_name] = init_value;
-
-
-
     Object.defineProperty(this, ctx.name, {
       configurable: true,
       set(v: any) { self[pri_val_name] = v },
       get() { return self[pri_val_name] }
-
     })
   })
 }

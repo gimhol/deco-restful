@@ -1,16 +1,16 @@
-import { __INNER_PREFIX__, Context } from "../../Context.mjs";
+import { Context } from "../../Context.mjs";
+import { __INNER_PREFIX__ } from "../../DEFINES.mjs";
 import type { IClass } from "../../types.mjs";
 import { get_props_map } from "./get_props_map.mjs";
 
-export interface IDTOInfo<C = any> {
+export interface IDataInfo<C = any> {
   clazz: IClass<C>;
 }
 
-export function DTO<C = any, T extends IClass<C> = IClass<C>>(clazz: T, ctx: ClassDecoratorContext<T>): void {
-  const rinfo: IDTOInfo<C> = { clazz }
-  Context.registDTO(rinfo);
+export function Data<C = any, T extends IClass<C> = IClass<C>>(clazz: T, ctx: ClassDecoratorContext<T>): void {
+  const rinfo: IDataInfo<C> = { clazz }
+  Context.registData(rinfo);
   ctx.addInitializer(function () {
-    console.debug('DTO Initializer Called!', ctx)
     if (!this.prototype.toJSON) {
       this.prototype.toJSON = function () {
         const ret: any = {}
@@ -23,6 +23,5 @@ export function DTO<C = any, T extends IClass<C> = IClass<C>>(clazz: T, ctx: Cla
         return ret
       }
     }
-
   })
 }

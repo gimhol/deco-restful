@@ -1,14 +1,9 @@
 import type { IRControllerInfo } from "./decorators/Controller.mjs";
-import type { IDTOInfo, IRPropertyInfo } from "./index.mjs";
+import type { IDataInfo, IRPropertyInfo } from "./index.mjs";
 import type { IClass, IHandlerInfo, IParamaterInfo, IRHandlerInfo } from "./types.mjs";
 
-export const __INNER_PREFIX__ = '_$$';
-export const __PROP_INFO_PREFIX__ = __INNER_PREFIX__ + '!_';
-export const __SRC_VAL_PREFIX__ = __INNER_PREFIX__ + '$_';
-export const __PRI_VAL_PREFIX__ = __INNER_PREFIX__ + '@_';
-export const __PROPS_MAP_KEY__ = __INNER_PREFIX__ + '$_GETTERS_'
 export class Context {
-  protected static _cls_dto_map = new Map<IClass, IDTOInfo>()
+  protected static _cls_Data_map = new Map<IClass, IDataInfo>()
   protected static _ctrl_infos = new Set<IRControllerInfo>();
   protected static _cls_ctrl_info_map = new Map<IClass, IRControllerInfo>()
   protected static _path_ctrl_info_map = new Map<string, IRControllerInfo>()
@@ -29,8 +24,8 @@ export class Context {
     return this._path_ctrl_info_map
   }
   static get controllers(): ReadonlySet<IRControllerInfo> { return this._ctrl_infos; }
-  static registDTO(info: IDTOInfo) {
-    this._cls_dto_map.set(info.clazz, info)
+  static registData(info: IDataInfo) {
+    this._cls_Data_map.set(info.clazz, info)
   }
 
   static paramaters(func: Function): IParamaterInfo[] {

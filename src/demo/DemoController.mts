@@ -8,8 +8,13 @@ class SubDTO {
 
 @DTO
 class DemoDTO {
-  @Property
+
+  @Property({})
   get hello(): string { return 'world' }
+
+  @Property({ init: 'hello setter' })
+  set hello(v: string) { }
+
 
   @Property
   get sub(): SubDTO { return new SubDTO() }

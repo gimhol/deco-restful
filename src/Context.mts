@@ -2,6 +2,11 @@ import type { IRControllerInfo } from "./decorators/Controller.mjs";
 import type { IDTOInfo, IRPropertyInfo } from "./index.mjs";
 import type { IClass, IHandlerInfo, IParamaterInfo, IRHandlerInfo } from "./types.mjs";
 
+export const __INNER_PREFIX__ = '_$$';
+export const __PROP_INFO_PREFIX__ = __INNER_PREFIX__ + '!_';
+export const __SRC_VAL_PREFIX__ = __INNER_PREFIX__ + '$_';
+export const __PRI_VAL_PREFIX__ = __INNER_PREFIX__ + '@_';
+export const __PROPS_MAP_KEY__ = __INNER_PREFIX__ + '$_GETTERS_'
 export class Context {
   protected static _cls_dto_map = new Map<IClass, IDTOInfo>()
   protected static _ctrl_infos = new Set<IRControllerInfo>();
@@ -12,7 +17,7 @@ export class Context {
   protected static _handlers = new Map<string, IRHandlerInfo>()
   protected static _handler_info_maps = new Map<Function, IHandlerInfo[]>()
   protected static _paramater_info_maps = new Map<Function, IParamaterInfo[]>()
-  protected static _property_info_maps = new Map<Function, IRPropertyInfo>()
+  protected static _property_info_maps = new Map<Function, IRPropertyInfo<any, any>>()
 
   static registProperty<This = unknown, T = unknown>(info: IRPropertyInfo<This, T>) {
     this._property_info_maps.set(info.func, info as IRPropertyInfo<unknown, unknown>)

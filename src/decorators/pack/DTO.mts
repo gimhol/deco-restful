@@ -1,6 +1,6 @@
-import { Context } from "../../Context.mjs";
+import { __INNER_PREFIX__, Context } from "../../Context.mjs";
 import type { IClass } from "../../types.mjs";
-import type { IRPropertyInfo } from "./Property.mjs";
+import { get_props_map } from "./get_props_map.mjs";
 
 export interface IDTOInfo<C = any> {
   clazz: IClass<C>;
@@ -15,15 +15,11 @@ export function DTO<C = any, T extends IClass<C> = IClass<C>>(clazz: T, ctx: Cla
       this.prototype.toJSON = function () {
         const ret: any = {}
         for (const key in this) {
-          if (key.startsWith('_$$$')) continue;
+          if (key.startsWith(__INNER_PREFIX__)) continue;
         }
-        const getters = this['_$$$_GETTERS_'] as IRPropertyInfo<unknown, unknown>[];
-        if (Array.isArray(getters)) {
-          for (const n of getters) {
-            ret[n.field] = this[n.name]
-          }
+        for (const [_, n] of get_props_map(this)) {
+          ret[n.field ?? n.name] = this[n.name]
         }
-
         return ret
       }
     }

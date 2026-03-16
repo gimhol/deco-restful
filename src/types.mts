@@ -10,7 +10,7 @@ export interface IMethodDecorator<This, Args extends any[], Return> {
     context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Return>
   ): void;
 }
-export interface IPropertyDecorator<T, This> {
+export interface IPropertyDecorator<This, T> {
   (
     target: (this: This, v: T) => void,
     context: ClassSetterDecoratorContext<This, T>

@@ -1,12 +1,20 @@
-import { Controller, CONTROLLER_ROOT, DELETE, GET, Pack, Param, POST, Property, PUT } from "../index.mjs";
+import { Controller, CONTROLLER_ROOT, DELETE, DTO, GET, Param, POST, Property, PUT } from "../index.mjs";
 
-@Pack
-class DemoPack {
-  @Property
-  get a(): null { return null }
-  @Property
-  set a(v) { }
+@DTO
+class SubDTO {
+  @Property({ field: 'bar' })
+  get foo(): string { return 'good' }
 }
+
+@DTO
+class DemoDTO {
+  @Property
+  get hello(): string { return 'world' }
+
+  @Property
+  get sub(): SubDTO { return new SubDTO() }
+}
+
 
 @Controller('blog')
 class Demo {
@@ -22,7 +30,7 @@ class Demo {
   @Param.Str('str')
   @Param.Num('num')
   @Param.Bool('bool')
-  @Param.Pack('pack', DemoPack)
+  @Param.DTO('pack', DemoDTO)
   str_num_bool(str: string, num: number, bool: boolean) {
     const TAG = `[${Demo.TAG}::test]`
     console.log(`${TAG} called`)
@@ -38,3 +46,8 @@ class Demo {
 
   world() { }
 }
+
+const dto = new DemoDTO();
+console.log('dto:', dto)
+console.log('dto.hello:', dto.hello)
+console.log('dto.toJSON:', JSON.stringify(dto))

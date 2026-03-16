@@ -1,5 +1,5 @@
-import { Param } from "./Paramater.mjs";
 import type { IMethodDecorator } from "../../types.mjs";
+import { Param } from "./Param.mjs";
 
 export function Str<This, Args extends any[], Return>(
   key: string,

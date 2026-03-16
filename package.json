@@ -8,7 +8,7 @@
     "build:node": "npx esbuild ./src/index.mts --bundle --outfile=dist/index.js --platform=node --sourcemap",
     "build:types": "npx dts-bundle-generator src/index.mts -o dist/index.d.ts",
     "build": "npm run build:node && npm run build:types",
-    "dev": "nodemon --exec tsx ./src/demo/index.mts"
+    "dev": "nodemon --exec tsx ./src/demo/exporess-demo.mts"
   },
   "author": "",
   "license": "ISC",

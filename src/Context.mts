@@ -1,17 +1,22 @@
 import type { IRControllerInfo } from "./decorators/Controller.mjs";
+import type { IDTOInfo, IRPropertyInfo } from "./index.mjs";
 import type { IClass, IHandlerInfo, IParamaterInfo, IRHandlerInfo } from "./types.mjs";
 
 export class Context {
+  protected static _cls_dto_map = new Map<IClass, IDTOInfo>()
   protected static _ctrl_infos = new Set<IRControllerInfo>();
   protected static _cls_ctrl_info_map = new Map<IClass, IRControllerInfo>()
   protected static _path_ctrl_info_map = new Map<string, IRControllerInfo>()
   protected static _cls_ctrl_map = new Map<IClass, any>();
   protected static _path_ctrl_map = new Map<string, any>();
-
   protected static _handlers = new Map<string, IRHandlerInfo>()
   protected static _handler_info_maps = new Map<Function, IHandlerInfo[]>()
   protected static _paramater_info_maps = new Map<Function, IParamaterInfo[]>()
+  protected static _property_info_maps = new Map<Function, IRPropertyInfo>()
 
+  static registProperty<This = unknown, T = unknown>(info: IRPropertyInfo<This, T>) {
+    this._property_info_maps.set(info.func, info as IRPropertyInfo<unknown, unknown>)
+  }
   static get cls_ctrl_info_map(): ReadonlyMap<IClass, IRControllerInfo> {
     return this._cls_ctrl_info_map
   }
@@ -19,6 +24,10 @@ export class Context {
     return this._path_ctrl_info_map
   }
   static get controllers(): ReadonlySet<IRControllerInfo> { return this._ctrl_infos; }
+  static registDTO(info: IDTOInfo) {
+    this._cls_dto_map.set(info.clazz, info)
+  }
+
   static paramaters(func: Function): IParamaterInfo[] {
     return this._paramater_info_maps.get(func) || [];
   }

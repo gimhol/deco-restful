@@ -1,6 +1,5 @@
-import type { IMethodDecorator, ISetterDecorator } from "../../types.mjs";
-import { Param } from "./Paramater.mjs";
-
+import type { IMethodDecorator } from "../../types.mjs";
+import { Param } from "./Param.mjs";
 
 export function Bool<This, Args extends any[], Return>(
   key: string,

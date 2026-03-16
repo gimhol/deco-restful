@@ -1,21 +1,5 @@
-import { Controller, CONTROLLER_ROOT, Data, DELETE, GET, Param, POST, Property, PUT } from "../index.mjs";
-
-@Data
-class SubData {
-  @Property({ field: 'bar' })
-  get foo(): string { return 'good' }
-}
-
-@Data
-class DemoData {
-
-  @Property({})
-  get hello(): string { return 'world' }
-  set hello(_: string) { }
-
-  @Property
-  get sub(): SubData { return new SubData() }
-}
+import { Controller, CONTROLLER_ROOT, DELETE, GET, Param, POST, PUT } from "../index.mjs";
+import { DemoData } from "./DemoData.mjs";
 
 
 @Controller('blog')
@@ -48,7 +32,6 @@ class Demo {
 }
 
 const demoData = new DemoData();
-demoData.hello = 'world by user'
-// console.log('Data:', Data)
-// console.log('Data.hello:', Data.hello)
+demoData.setter_only_with_init = 'world by user'
+demoData.setter_only_with_init = null
 console.log('Data.toJSON:', JSON.stringify(demoData))

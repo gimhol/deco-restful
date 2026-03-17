@@ -1,4 +1,4 @@
-import { Controller, CONTROLLER_ROOT, DELETE, GET, Param, POST, PUT } from "../index.mjs";
+import { Controller, CONTROLLER_ROOT, Data, DELETE, GET, Param, POST, PUT } from "../index.mjs";
 import { DemoData } from "./DemoData.mjs";
 
 
@@ -35,3 +35,5 @@ const demoData = new DemoData();
 demoData.setter_only_with_init = 'world by user'
 demoData.setter_only_with_init = null
 console.log('Data.toJSON:', JSON.stringify(demoData))
+
+Data.fromJSON(DemoData, {})

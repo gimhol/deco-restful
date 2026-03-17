@@ -7,6 +7,8 @@ export interface IDataInfo<C = any> {
   clazz: IClass<C>;
 }
 
+
+
 export function Data<C = any, T extends IClass<C> = IClass<C>>(clazz: T, ctx: ClassDecoratorContext<T>): void {
   const rinfo: IDataInfo<C> = { clazz }
   Context.registData(rinfo);
@@ -23,5 +25,15 @@ export function Data<C = any, T extends IClass<C> = IClass<C>>(clazz: T, ctx: Cl
         return ret
       }
     }
+    if (!this.prototype.fromJSON) this.prototype.fromJSON = function () {
+
+    }
   })
+}
+
+Data.fromJSON = function <C extends object, T extends IClass<C> = IClass<C>>(cls: T, json: any) {
+  const ret = new cls();
+  if ('fromJSON' in ret && typeof ret.fromJSON == 'function')
+    ret.fromJSON(json);
+  return ret;
 }
